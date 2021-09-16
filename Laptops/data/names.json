@@ -1,14 +1,4 @@
-[
-    {
-      "name": "Melissa Parkinson"
-    },
-    {
-      "name": "Alex Eseyin"
-    },
-    {
-      "name": "Jacob DiSpirito"
-    },
-    {
-      "name": "Anjana Rajamani"
-    }
-]
+{
+    "team": "Team 5",
+    "memberNames": ["Melissa Parkinson", "Alex Eseyin", "Jacob DiSpirito", "Anjana Rajamani"]
+}
