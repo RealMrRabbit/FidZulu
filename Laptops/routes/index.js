@@ -11,28 +11,19 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Laptop BackEnd Service'});
 });
 
-router.get('/laptops', (request, response, next) => {
-  let get_params = url.parse(request.url, true).query;
-  console.log('Processing laptops');
-  if (Object.keys(get_params).length == 0) {
-  console.log('no params');
-  response.setHeader('content-type', 'application/json');
-  response.end(JSON.stringify(laptops.list()));
+router.get('/laptops/all/:location', (request, response, next) => {
+  let data;
+  let param = request.params.location;
+  if (param == 'durham') {
+    data = laptops.calcTax(0.08);
+  } else if (param == 'raleigh') {
+    data = laptops.calcTax(0.075);
   } else {
-  // get first parameter only
-  let key = Object.keys(get_params)[0];
-  console.log("First key is: " + key);
-  let value = request.query[key];
-  console.log('params ' + value);
-  let result = laptops.query_by_arg(key, value);
-  if (result) {
+    next(createError(400));
+  }
   response.setHeader('content-type', 'application/json');
-  response.end(JSON.stringify(result));
-  } else {
-  next(createError(404));
-  }
-  }
- });
+  response.end(JSON.stringify(data));
+});
 
  router.get('/laptops/names', (request, response, next) => {
   let get_params = url.parse(request.url, true).query;
