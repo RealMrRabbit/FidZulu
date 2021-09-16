@@ -18,7 +18,6 @@ describe("Bike endpoint testing", function () {
             });
         });
     });
-
     describe("GET bikes", () => {
         it("returns status code 404",  (done) => {
             request.get(base_url + 'bikes', (error, response, body) => {
@@ -27,4 +26,22 @@ describe("Bike endpoint testing", function () {
             });
         });
     });
+    describe("Get /bikes/all/:location", () => {
+        it("should return prices with raleigh tax.", (done) => {
+            request.get(base_url + 'bikes/all/raleigh', (error, response, body) => {
+                expect(response.statusCode).toBe(200);
+                expect(response.body).toContain("Mamba Sport 12");
+                expect(response.body).toContain("81.57");
+                done();
+            });
+        })
+        it("should return prices with durhm tax", (done) => {
+            request.get(base_url + 'bikes/all/durham', (errpr, response, body) => {
+                expect(response.statusCode).toBe(200);
+                expect(response.body).toContain("Mamba Sport 12");
+                expect(response.body).toContain("81.95");
+                done();
+            })
+        })
+    })
 });
