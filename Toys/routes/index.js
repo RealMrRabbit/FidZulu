@@ -25,7 +25,7 @@ router.get('/toys/all/:location', (request, response, next) => {
   response.end(JSON.stringify(data));
 });
 
- router.get('/toys/names', (request, response, next) => {
+ router.get('/toys/team', (request, response, next) => {
   let get_params = url.parse(request.url, true).query;
   console.log('Processing names');
   if (Object.keys(get_params).length == 0) {
