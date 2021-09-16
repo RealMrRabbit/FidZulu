@@ -25,7 +25,7 @@ router.get('/laptops/all/:location', (request, response, next) => {
   response.end(JSON.stringify(data));
 });
 
- router.get('/laptops/names', (request, response, next) => {
+ router.get('/laptops/team', (request, response, next) => {
   let get_params = url.parse(request.url, true).query;
   console.log('Processing names');
   if (Object.keys(get_params).length == 0) {
