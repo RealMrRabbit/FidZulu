@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const createError = require('http-errors');
 const dvds = require('../modules/DVDs');
+const team= require('../modules/team')
 const url = require('url');
 
 /* GET home page. */
@@ -10,28 +11,48 @@ router.get('/', function(req, res, next) {
 });
 
 // can process any existing query paramters (e.g.:?firstname=John)
-router.get('/dvds', (request, response, next) => {
+router.get('/dvds/all/:location', (request, response, next) => {
+  const param = request.params.location;
+  console.log('got into dvd/all/:location ' + param);
 
-  let get_params = url.parse(request.url, true).query;
-  console.log('got into dvds');
-
-  if (Object.keys(get_params).length == 0) {
-    console.log('no params');
+ 
+  const result = dvds.query_all(
+    "location", param);
+  if (result) {
     response.setHeader('content-type', 'application/json');
-    response.end(JSON.stringify(dvds.list()));
+    response.end(JSON.stringify(result));
   } else {
-    let key = Object.keys(get_params)[0]; // get first parameter only
-    console.log("First key is: " + key);
-    let value = request.query[key];
-    console.log('params ' + value);
-    let result = dvds.query_by_arg(key, value);
-    if (result) {
-      response.setHeader('content-type', 'application/json');
-      response.end(JSON.stringify(result));
-    } else {
-      next(createError(404));
-    }
+    next(createError(404));
   }
 });
 
+router.get('/dvd/title/:title', (request, response, next) => {
+  const param = request.params.title;
+  console.log('got into dvd/title/:title ' + param);
+
+ 
+
+  const result = dvds.query_by_arg(
+    "title", param);
+  if (result) {
+    response.setHeader('content-type', 'application/json');
+    response.end(JSON.stringify(result));
+  } else {
+    next(createError(404));
+  }
+});
+
+router.get('/dvds/teams', (request, response, next) => {
+  
+  console.log('got into /dvds/teams ');
+
+ 
+  const result = team.query_teams();
+  if (result) {
+    response.setHeader('content-type', 'application/json');
+    response.end(JSON.stringify(result));
+  } else {
+    next(createError(404));
+  }
+});
 module.exports = router;
