@@ -57,16 +57,3 @@ exports.query_by_arg = (arg, value) => {
     return null;
 };
 
-exports.query_teams = () => {
-    let json_result = JSON.parse(read_json_file());
-    // all addresses are stored in a "result" object
-    let result = json_result;
-    
-    for (let i = 0; i < result.length; i++) {
-        let team = result[i];
-        
-            return team;
-        
-    }
-    return null;
-};

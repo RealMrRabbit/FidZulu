@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const createError = require('http-errors');
 const food = require('../modules/food');
+const team = require('../modules/teams');
 const url = require('url');
 
 /* GET home page. */
