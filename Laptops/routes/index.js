@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const laptops=require('../modules/laptops');
+const names=require('../modules/names');
 const url =require('url');
 
 /* GET home page. */
@@ -24,6 +25,29 @@ router.get('/laptops', (request, response, next) => {
   let value = request.query[key];
   console.log('params ' + value);
   let result = laptops.query_by_arg(key, value);
+  if (result) {
+  response.setHeader('content-type', 'application/json');
+  response.end(JSON.stringify(result));
+  } else {
+  next(createError(404));
+  }
+  }
+ });
+
+ router.get('/laptops/names', (request, response, next) => {
+  let get_params = url.parse(request.url, true).query;
+  console.log('Processing names');
+  if (Object.keys(get_params).length == 0) {
+  console.log('no params');
+  response.setHeader('content-type', 'application/json');
+  response.end(JSON.stringify(names.list()));
+  } else {
+  // get first parameter only
+  let key = Object.keys(get_params)[0];
+  console.log("First key is: " + key);
+  let value = request.query[key];
+  console.log('params ' + value);
+  let result = names.query_by_arg(key, value);
   if (result) {
   response.setHeader('content-type', 'application/json');
   response.end(JSON.stringify(result));
