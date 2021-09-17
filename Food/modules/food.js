@@ -29,7 +29,7 @@ exports.query_all = (arg, value) => {
     console.log("query by arg: " + arg + " " + value);
     for (let i = 0; i < result.length; i++) {
         result[i]["price"]= result[i].price * conversion * tax;
-        result[i]["price"]= result[i]["price"].toFixed(2);
+        result[i]["price"]= parseFloat(result[i]["price"].toFixed(2));
     }
     return result;
 };
