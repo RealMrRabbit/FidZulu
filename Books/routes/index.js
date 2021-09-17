@@ -32,4 +32,10 @@ router.get('/books/all/:location', (request, response, next) => {
   response.end(JSON.stringify(data));
 })
 
+router.get('/books/team', (request, response, next) => {
+  let team = '{ "team" : "Team 1", "membersNames" : [ "Aidan Lee", "Byron Martinez", "Connor Renquin", "Noor Helbaoui" ] }';
+  const ret = JSON.parse(team);
+  response.send(ret);
+})
+
 module.exports = router;
