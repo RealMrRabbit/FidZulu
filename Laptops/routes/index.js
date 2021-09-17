@@ -49,8 +49,6 @@ router.get('/laptops/team', (request, response, next) => {
 });
 
 router.post('/laptops/add', (request, response, next) => {
-  console.log(request.body)
-
   let product = request.body.product;
   let brand = request.body.brand;
   let cpu = request.body.CPU;
@@ -65,14 +63,15 @@ router.post('/laptops/add', (request, response, next) => {
     "price": price
   }
   try {
+    
     laptops.addData(newData);
-
-    response.send('Added a laptop')
+    response.setHeader('content-type', 'application/json');
+    response.send('Added a laptop');
+    
   } catch (err) {
     console.log("Caught exception.");
     response.status(500).send('Something broke!');
   }
-
 
 });
 
