@@ -17,14 +17,17 @@ exports.query_all = (arg, value) => {
     let conversion = 1;
     let tax = 1.08;
     
-    if(value=="Durham"){
+    if(value=="durham"){
         conversion = 1;
         tax = 1.08;
     } 
-    else if(value=="Raleigh"){
+    else if(value=="raleigh"){
         conversion = 1;
         tax = 1.075;
     }
+    else {
+        return null;
+      }
 
     console.log("query by arg: " + arg + " " + value);
     for (let i = 0; i < result.length; i++) {
