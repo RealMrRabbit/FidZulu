@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
 
 const toys=require('../modules/toys');
 const names=require('../modules/names');
@@ -10,6 +11,18 @@ const url =require('url');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Toys BackEnd Service'});
 });
+
+router.post('/toys/add', (request, response, next) => {
+  var json = toys.list();
+  json.push(request.body);
+  var data = JSON.stringify(json);
+  fs.writeFileSync("./data/toys.json", data, (err) => {
+    if (err) throw err;
+    console.log("Added: " + data);
+  });
+  response.setHeader('content-type', 'application/json');
+  response.end(data);
+})
 
 router.get('/toys/all/:location', (request, response, next) => {
   let data;

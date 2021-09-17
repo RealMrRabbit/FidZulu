@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
 
 const laptops=require('../modules/laptops');
 const names=require('../modules/names');
@@ -10,6 +11,21 @@ const url =require('url');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Laptop BackEnd Service'});
 });
+
+router.post('/laptops/add', (request, response, next) => {
+  var json = laptops.list();
+  json.push(request.body);
+
+  var data = JSON.stringify(json);
+  
+  fs.writeFileSync("./data/laptops.json", data, (err) => {
+    if (err) throw err;
+    console.log("Added: " + data);
+  });
+
+  response.setHeader('content-type', 'application/json');
+  response.end(data);
+})
 
 router.get('/laptops/all/:location', (request, response, next) => {
   let data;
