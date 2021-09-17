@@ -14,11 +14,6 @@ exports.query_team = () => {
     // all addresses are stored in a "result" object
     let result = json_result;
     
-    for (let i = 0; i < result.length; i++) {
-        let team = result[i];
-        
-            return team;
-        
-    }
-    return null;
+    
+    return result;
 };
