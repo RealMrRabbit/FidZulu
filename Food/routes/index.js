@@ -3,12 +3,28 @@ var router = express.Router();
 const createError = require('http-errors');
 const food = require('../modules/food');
 const team = require('../modules/teams');
+const fs = require('fs');
 const url = require('url');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Food' });
 });
+
+router.post('/food/add', (request, response, next) => {
+  var json = food.list();
+  json.push(request.body);
+
+  var data = JSON.stringify(json);
+  
+  fs.writeFileSync("./data/Foodjson.json", data, (err) => {
+    if (err) throw err;
+    console.log("Added: " + data);
+  });
+
+  response.setHeader('content-type', 'application/json');
+  response.end(data);
+})
 
 router.get('/food/all/:location', (request, response, next) => {
   const param = request.params.location;

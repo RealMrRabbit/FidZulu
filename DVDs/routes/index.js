@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const createError = require('http-errors');
 const dvds = require('../modules/DVDs');
-const team= require('../modules/team')
+const team= require('../modules/team');
+const fs = require('fs');
 const url = require('url');
 
 /* GET home page. */
@@ -25,6 +26,21 @@ router.get('/dvds/all/:location', (request, response, next) => {
     next(createError(404));
   }
 });
+
+router.post('/dvds/add', (request, response, next) => {
+  var json = dvds.list();
+  json.push(request.body);
+
+  var data = JSON.stringify(json);
+  
+  fs.writeFileSync("./data/DVDsjson.json", data, (err) => {
+    if (err) throw err;
+    console.log("Added: " + data);
+  });
+
+  response.setHeader('content-type', 'application/json');
+  response.end(data);
+})
 
 router.get('/dvd/title/:title', (request, response, next) => {
   const param = request.params.title;
