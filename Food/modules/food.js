@@ -17,11 +17,11 @@ exports.query_all = (arg, value) => {
     let conversion = 1;
     let tax = 1.08;
     
-    if(value=="Durham"){
+    if(value==="Durham"){
         conversion = 1;
         tax = 1.08;
     } 
-    else if(value=="Raleigh"){
+    else if(value==="Raleigh"){
         conversion = 1;
         tax = 1.075;
     }
@@ -29,7 +29,7 @@ exports.query_all = (arg, value) => {
     console.log("query by arg: " + arg + " " + value);
     for (let i = 0; i < result.length; i++) {
         result[i]["price"]= result[i].price * conversion * tax;
-        result[i]["price"]= result[i]["price"].toFixed(2);
+        result[i]["price"]= parseFloat(result[i]["price"].toFixed(2));
     }
     return result;
 };
