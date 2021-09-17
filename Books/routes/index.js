@@ -38,4 +38,19 @@ router.get('/books/team', (request, response, next) => {
   response.send(ret);
 })
 
+router.post('/books/add', (request, response, next) => {
+  var json = booksData.list();
+  json.push(request.body);
+
+  var data = JSON.stringify(json);
+  
+  fs.writeFileSync("./data/books-data.json", data, (err) => {
+    if (err) throw err;
+    console.log("Added: " + data);
+  });
+
+  response.setHeader('content-type', 'application/json');
+  response.end(data);
+})
+
 module.exports = router;
