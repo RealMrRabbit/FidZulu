@@ -17,3 +17,16 @@ exports.calcTax = (tax) => {
     }
     return data;
   }
+
+exports.addData = (addedData) => {
+  let data = JSON.parse(read_json_file());
+  data.push(addedData);
+
+  let newData = JSON.stringify(data);
+  fs.writeFile('./data/laptops.json', newData, err => {
+    if(err){
+      throw err;
+    }
+    console.log("new data added")
+  } )
+}
