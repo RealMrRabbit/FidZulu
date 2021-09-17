@@ -42,12 +42,12 @@ router.get('/dvd/title/:title', (request, response, next) => {
   }
 });
 
-router.get('/dvds/teams', (request, response, next) => {
+router.get('/dvds/team', (request, response, next) => {
   
-  console.log('got into /dvds/teams ');
+  console.log('got into /dvds/team ');
 
  
-  const result = team.query_teams();
+  const result = team.query_team();
   if (result) {
     response.setHeader('content-type', 'application/json');
     response.end(JSON.stringify(result));
