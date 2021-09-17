@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 // can process any existing query paramters (e.g.:?firstname=John)
 router.get('/dvds/all/:location', (request, response, next) => {
   const param = request.params.location;
+  
   console.log('got into dvd/all/:location ' + param);
 
  
