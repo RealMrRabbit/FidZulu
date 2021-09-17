@@ -38,11 +38,11 @@ router.get('/food/name/:name', (request, response, next) => {
   }
 });
 
-router.get('/food/teams', (request, response, next) => {
+router.get('/food/team', (request, response, next) => {
   
-  console.log('got into /food/teams ');
+  console.log('got into /food/team ');
 
-  const result = team.query_teams();
+  const result = team.query_team();
   if (result) {
     response.setHeader('content-type', 'application/json');
     response.end(JSON.stringify(result));
