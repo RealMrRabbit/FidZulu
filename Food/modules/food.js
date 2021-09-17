@@ -17,17 +17,13 @@ exports.query_all = (arg, value) => {
     let conversion = 1;
     let tax = 1.08;
     
-    if(value=="US-NC"){
+    if(value=="Durham"){
         conversion = 1;
         tax = 1.08;
     } 
-    else if(value=="IE"){
-        conversion = 0.85;
-        tax = 1.23;
-    }
-    else if(value=="IN"){
-        conversion = 73.58;
-        tax = 1.18;
+    else if(value=="Raleigh"){
+        conversion = 1;
+        tax = 1.075;
     }
 
     console.log("query by arg: " + arg + " " + value);
